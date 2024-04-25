@@ -21,13 +21,15 @@ namespace MyBlogApi
         {
             // Add services to the container.
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<ArticleBase, Article>();
-            builder.Services.AddDbContext<MyBlogApiContext>();
+            builder.Services.AddDbContext<MyBlogApiContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL"));
+            });
             builder.Services.AddScoped<ApplicationUser>();
-            builder.Services.AddScoped< ApplicationUserStore>();
+            builder.Services.AddScoped<ApplicationUserStore>();
             builder.Services.AddScoped<IArticleStore, ArticleStore>();
             builder.Services.AddIdentityCore<ApplicationUser>().AddEntityFrameworkStores< MyBlogApiContext >();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -49,19 +51,21 @@ namespace MyBlogApi
                         Encoding.UTF8.GetBytes(builder.Configuration["Authentication:SecretForKey"]))
                 };
             });
-            builder.Services.AddTransient(provider =>
-            {
-                var dbContext=new MyBlogApiContext();
-                var userStore = new ApplicationUserStore(dbContext);
-                 
-                return new ArticleAndUserSeeder(provider, dbContext, new ApplicationUserStore(dbContext));
-            } );
+
+            //builder.Services.AddTransient(provider =>
+            //{
+            //    var dbContext = provider.GetService(typeof(MyBlogApiContext)) as MyBlogApiContext;
+            //    var userStore = new ApplicationUserStore(dbContext);
+
+            //    return new ArticleAndUserSeeder(provider, dbContext, new ApplicationUserStore(dbContext));
+            //} );
             
+            builder.Services.AddTransient<ArticleAndUserSeeder>();
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
                     //如果添加了AllowCredentials，需要显式设置Origins
-                    builder => builder.WithOrigins("http://localhost:5173")
+                    builder => builder.WithOrigins("https://*:433")
                                       .AllowAnyMethod()
                                       .AllowAnyHeader()
                                       .AllowCredentials());
@@ -93,12 +97,13 @@ namespace MyBlogApi
                     RequestPath = "/Img"
                 });
             }
-           
+            
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -107,11 +112,12 @@ namespace MyBlogApi
                     pattern: "{controller=Home}"
                 );
             });
+            
             return app;
         }
         public static void RunSeeding(IServiceProvider services)
         {
-            var seeder = services.GetService<ArticleAndUserSeeder>()??throw new ArgumentNullException(nameof(ArticleAndUserSeeder),"ArticleAndUserSeeder 不能为空") ;
+            //var seeder = services.GetService<ArticleAndUserSeeder>()??throw new ArgumentNullException(nameof(ArticleAndUserSeeder),"ArticleAndUserSeeder 不能为空") ;
             //seeder.Seed();
             //seeder.SeedTestData();
         }

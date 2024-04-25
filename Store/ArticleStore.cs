@@ -26,7 +26,7 @@ namespace MyBlogApi.Store
             var articles = dbContext.Article.Include(a=>a.User).AsNoTracking().Skip(lastIndex).Take(takeSum).ToList();
             foreach (var item in articles)
             {
-                item.ImgPath = "http://localhost:5209/Img/" + item.ImgPath + ".png";
+                item.ImgPath = "https://42.193.13.167:1433/home/ubuntu/Img/" + item.ImgPath + ".png";
             }
             return articles;
         }
@@ -64,7 +64,7 @@ namespace MyBlogApi.Store
                     select articles;
             foreach (var item in a)
             {
-                item.ImgPath = "http://localhost:5209/Img/" + item.ImgPath + ".png";
+                item.ImgPath = "https://42.193.13.167:1433/home/ubuntu/Img/" + item.ImgPath + ".png";
             }
             return a;
         }

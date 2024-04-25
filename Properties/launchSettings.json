@@ -8,25 +8,8 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:35678"
-    },
-    "Docker": {
-      "commandName": "Docker",
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
-      "environmentVariables": {
-        "ASPNETCORE_URLS": "https://+:443;http://+:80"
-      },
-      "publishAllPorts": true,
-      "useSSL": true
+      "applicationUrl": "https://*:443"
     }
   },
-  "$schema": "https://json.schemastore.org/launchsettings.json",
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:26651",
-      "sslPort": 44349
-    }
-  }
+  "$schema": "https://json.schemastore.org/launchsettings.json"
 }

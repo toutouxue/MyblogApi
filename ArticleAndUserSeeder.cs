@@ -10,7 +10,7 @@ namespace MyBlogApi
         private readonly MyBlogApiContext myBlogApiContext;
         private readonly ApplicationUserStore userStore;
 
-        public ArticleAndUserSeeder(IServiceProvider serviceProvider,MyBlogApiContext myBlogApiContext, ApplicationUserStore userStore)
+        public  ArticleAndUserSeeder(IServiceProvider serviceProvider,MyBlogApiContext myBlogApiContext, ApplicationUserStore userStore)
         {
             ArgumentNullException.ThrowIfNull(serviceProvider, nameof(serviceProvider));
             ArgumentNullException.ThrowIfNull(myBlogApiContext, nameof(myBlogApiContext));
@@ -62,10 +62,12 @@ namespace MyBlogApi
         {
             if (!myBlogApiContext.Database.EnsureCreated())
             {
-               await SeedTheUser();
-               await SeedTheArticle();
+                await SeedTheUser();
+                await SeedTheArticle();
             }
-            else Console.WriteLine("数据初始化失败");
+            else { 
+            
+            };
         }
         public void SeedTestData()
         {
