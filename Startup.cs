@@ -28,6 +28,7 @@ namespace MyBlogApi
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL"));
             });
+            builder.Services.AddScoped<ILogger>();
             builder.Services.AddScoped<ApplicationUser>();
             builder.Services.AddScoped<ApplicationUserStore>();
             builder.Services.AddScoped<IArticleStore, ArticleStore>();
@@ -84,7 +85,7 @@ namespace MyBlogApi
                 app.UseStaticFiles(
                 new StaticFileOptions
                 {
-                    FileProvider = new PhysicalFileProvider(Path.Combine(app.Environment.ContentRootPath) + "Img"),
+                    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Img")),
                     RequestPath = "/Img"
                 }
                );
@@ -93,7 +94,7 @@ namespace MyBlogApi
                 app.UseStaticFiles(
                 new StaticFileOptions
                 {
-                    FileProvider = new PhysicalFileProvider("/home/ubuntu/Img"),
+                    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Img")),
                     RequestPath = "/Img"
                 });
             }

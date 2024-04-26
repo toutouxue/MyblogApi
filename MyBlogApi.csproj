@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>37988ac4-e4f9-4406-9a43-4333fe2b8649</UserSecretsId>
-    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,8 +34,23 @@
 
   <ItemGroup>
     <None Update="Dockerfile">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Img\00000000-0000-0000-0000-000000000000" />
+    <None Include="wwwroot\Img\01.jpg" />
+    <None Include="wwwroot\Img\165d9ee7-ed39-4b48-b37b-d168368ee5b6+.png" />
+    <None Include="wwwroot\Img\2b00c91a-fac2-4399-9719-3b5dc6ed1233.png" />
+    <None Include="wwwroot\Img\42f1cc0a-3d0d-4a41-b781-73dff106934b" />
+    <None Include="wwwroot\Img\4e184b9e-bf69-47bb-ad65-7150f89e51de.png" />
+    <None Include="wwwroot\Img\5dc0eddc-8eac-46c1-93c3-88483893581e.png" />
+    <None Include="wwwroot\Img\5dd1f046-38b5-4626-8ff3-b425111a44e0.png" />
+    <None Include="wwwroot\Img\adv.png" />
+    <None Include="wwwroot\Img\be0cbbb7-8c43-4324-9885-3d012c3f29c0.png" />
+    <None Include="wwwroot\Img\cfe3c022-2a6a-4b56-a80e-e86f9c8b0b7a.png" />
+    <None Include="wwwroot\Img\dotnet-logo.png" />
   </ItemGroup>
 
 </Project>
